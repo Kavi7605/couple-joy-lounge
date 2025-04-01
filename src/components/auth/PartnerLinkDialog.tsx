@@ -29,6 +29,22 @@ const PartnerLinkDialog: React.FC<PartnerLinkDialogProps> = ({
   onLinkPartner
 }) => {
   const [partnerEmail, setPartnerEmail] = useState('');
+  
+  const handleCopyLink = () => {
+    if (user) {
+      copyToClipboard(generatePartnerLink(user));
+    }
+  };
+  
+  const handleShareWhatsApp = () => {
+    if (user) {
+      shareViaWhatsApp(generatePartnerLink(user));
+    }
+  };
+  
+  const handleLinkPartner = () => {
+    onLinkPartner(partnerEmail);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -51,7 +67,8 @@ const PartnerLinkDialog: React.FC<PartnerLinkDialogProps> = ({
               />
               <Button 
                 size="icon" 
-                onClick={() => copyToClipboard(generatePartnerLink(user))}
+                onClick={handleCopyLink}
+                type="button"
                 className="flex-shrink-0"
               >
                 <Copy className="h-4 w-4" />
@@ -63,7 +80,8 @@ const PartnerLinkDialog: React.FC<PartnerLinkDialogProps> = ({
             <Button
               variant="outline"
               className="flex items-center space-x-2"
-              onClick={() => copyToClipboard(generatePartnerLink(user))}
+              onClick={handleCopyLink}
+              type="button"
             >
               <Clipboard className="h-4 w-4" />
               <span>Copy Link</span>
@@ -72,7 +90,8 @@ const PartnerLinkDialog: React.FC<PartnerLinkDialogProps> = ({
             <Button
               variant="outline"
               className="flex items-center space-x-2"
-              onClick={() => shareViaWhatsApp(generatePartnerLink(user))}
+              onClick={handleShareWhatsApp}
+              type="button"
             >
               <Share className="h-4 w-4" />
               <span>Share via WhatsApp</span>
@@ -105,12 +124,13 @@ const PartnerLinkDialog: React.FC<PartnerLinkDialogProps> = ({
           <Button
             variant="ghost"
             onClick={() => onOpenChange(false)}
+            type="button"
           >
             Cancel
           </Button>
           <Button 
-            type="submit"
-            onClick={() => onLinkPartner(partnerEmail)}
+            type="button"
+            onClick={handleLinkPartner}
             disabled={!partnerEmail}
           >
             Link Partner
