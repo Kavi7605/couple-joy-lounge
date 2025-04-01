@@ -43,16 +43,18 @@ export default function NavBar() {
             
             {/* Desktop navigation */}
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link
-                to="/"
-                className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
-                  isActive("/")
-                    ? "border-love-500 text-gray-900"
-                    : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                }`}
-              >
-                Home
-              </Link>
+              {!user && (
+                <Link
+                  to="/"
+                  className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
+                    isActive("/")
+                      ? "border-love-500 text-gray-900"
+                      : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                  }`}
+                >
+                  Home
+                </Link>
+              )}
               
               {user && (
                 <>
@@ -222,17 +224,19 @@ export default function NavBar() {
       {/* Mobile menu */}
       <div className={`${mobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="pt-2 pb-3 space-y-1">
-          <Link
-            to="/"
-            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-              isActive("/")
-                ? "bg-love-50 border-love-500 text-love-700"
-                : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
-            }`}
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Home
-          </Link>
+          {!user && (
+            <Link
+              to="/"
+              className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                isActive("/")
+                  ? "bg-love-50 border-love-500 text-love-700"
+                  : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+          )}
           
           {user && (
             <>

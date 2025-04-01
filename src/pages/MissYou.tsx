@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart } from "lucide-react";
 
 interface MissYouData {
@@ -96,6 +96,7 @@ const MissYou = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
+      
       <main className="flex-grow bg-gradient-to-b from-pink-50 to-red-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -108,29 +109,66 @@ const MissYou = () => {
           </div>
           
           <div className="max-w-md mx-auto">
-            <div className="flex flex-col items-center mb-8">
-              <div
-                className={`relative cursor-pointer transition-all duration-300 ${
-                  isAnimating ? 'scale-150' : 'scale-100 hover:scale-110'
-                }`}
-                onClick={handleMissYouClick}
-              >
-                <Heart
-                  className={`h-32 w-32 ${
-                    isAnimating
-                      ? 'text-red-500 animate-ping'
-                      : 'text-red-400 hover:text-red-500'
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              {/* You miss your partner */}
+              <div className="flex flex-col items-center">
+                <h3 className="text-xl font-medium text-gray-900 mb-4">
+                  You miss {user.partnerName || "your partner"}
+                </h3>
+                <div
+                  className={`relative cursor-pointer transition-all duration-300 ${
+                    isAnimating ? 'scale-150' : 'scale-100 hover:scale-110'
                   }`}
-                  fill={isAnimating ? "currentColor" : "none"}
-                  strokeWidth={1.5}
-                />
-                <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-2xl">
-                  {missYouCount}
+                  onClick={handleMissYouClick}
+                >
+                  <Heart
+                    className={`h-32 w-32 ${
+                      isAnimating
+                        ? 'text-red-500 animate-ping'
+                        : 'text-red-400 hover:text-red-500'
+                    }`}
+                    fill={isAnimating ? "currentColor" : "none"}
+                    strokeWidth={1.5}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-2xl">
+                    {missYouCount}
+                  </div>
+                </div>
+                <p className="mt-4 text-center text-gray-700">
+                  You've clicked "Miss You" {missYouCount} times
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="mt-4 border-pink-200 text-pink-700 hover:bg-pink-100"
+                  onClick={handleMissYouClick}
+                >
+                  I miss you!
+                </Button>
+              </div>
+              
+              {/* Partner misses you */}
+              <div className="flex flex-col items-center">
+                <h3 className="text-xl font-medium text-gray-900 mb-4">
+                  {user.partnerName || "Your partner"} misses you
+                </h3>
+                <div className="relative">
+                  <Heart
+                    className="h-32 w-32 text-red-400"
+                    fill="currentColor"
+                    strokeWidth={1.5}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-2xl">
+                    {partnerMissYouCount}
+                  </div>
+                </div>
+                <p className="mt-4 text-center text-gray-700">
+                  {user.partnerName || "Your partner"} has clicked "Miss You" {partnerMissYouCount} times
+                </p>
+                <div className="h-10 mt-4">
+                  {/* Spacer to align with the other column */}
                 </div>
               </div>
-              <p className="mt-4 text-gray-700">
-                You've clicked "Miss You" {missYouCount} times
-              </p>
             </div>
             
             <Card className="bg-white/80 shadow-md backdrop-blur-sm mb-8">
@@ -144,23 +182,45 @@ const MissYou = () => {
               </CardContent>
             </Card>
             
-            {user.partnerId && (
+            {user.partnerId ? (
               <Card className="bg-gradient-to-br from-pink-100 to-red-100">
                 <CardContent className="p-6 text-center">
                   <h3 className="text-xl font-medium text-gray-900 mb-2">
-                    {user.partnerName || "Your partner"} misses you
+                    Your Miss You Ratio
                   </h3>
                   <div className="flex justify-center items-center space-x-2">
-                    <Heart className="h-6 w-6 text-red-500" fill="currentColor" />
-                    <span className="text-2xl font-bold text-red-600">{partnerMissYouCount}</span>
-                    <span className="text-gray-700">times</span>
+                    <div className="text-center">
+                      <span className="text-2xl font-bold text-red-600">{missYouCount}</span>
+                      <p className="text-sm text-gray-600">You</p>
+                    </div>
+                    <span className="text-xl">:</span>
+                    <div className="text-center">
+                      <span className="text-2xl font-bold text-red-600">{partnerMissYouCount}</span>
+                      <p className="text-sm text-gray-600">{user.partnerName}</p>
+                    </div>
                   </div>
+                  <p className="mt-4 text-gray-700 text-sm">
+                    {missYouCount > partnerMissYouCount 
+                      ? `You miss ${user.partnerName} more!` 
+                      : missYouCount < partnerMissYouCount 
+                        ? `${user.partnerName} misses you more!` 
+                        : "You miss each other equally!"}
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <p className="text-gray-700">
+                    Link with your partner to see how much they miss you!
+                  </p>
                 </CardContent>
               </Card>
             )}
           </div>
         </div>
       </main>
+      
       <Footer />
     </div>
   );
