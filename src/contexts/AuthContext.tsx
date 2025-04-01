@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useEffect } from 'react';
 import { toast } from "@/components/ui/use-toast";
 import { User, AuthContextType } from "@/types/auth";
@@ -182,8 +181,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const handlePartnerLinking = (partnerEmail: string) => {
-    // In a real app, this would send an invitation to the partner's email
-    // For this demo, we'll just simulate the linking
     if (!user || !partnerEmail) return;
     
     const users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -193,6 +190,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       toast({
         title: "Partner Not Found",
         description: "No user with that email address was found.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (partner.id === user.id) {
+      toast({
+        title: "Invalid Partner",
+        description: "You cannot link with yourself.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (partner.partnerId) {
+      toast({
+        title: "Partner Already Linked",
+        description: "This user is already linked with another partner.",
         variant: "destructive",
       });
       return;

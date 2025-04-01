@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuthContext";
@@ -119,6 +118,13 @@ const Dashboard = () => {
                 ? `You and ${user.partnerName}'s private space`
                 : "Set up your relationship profile to get started"}
             </p>
+            <Button 
+              variant="outline" 
+              className="mt-4 border-love-200 text-love-700 hover:bg-love-200 hover:text-love-800"
+              onClick={() => setIsProfileDialogOpen(true)}
+            >
+              Edit Profile
+            </Button>
           </div>
           
           {!user.partnerName && (

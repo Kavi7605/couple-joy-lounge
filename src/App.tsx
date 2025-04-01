@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,7 @@ import LoveGame from "./pages/LoveGame";
 import MissYou from "./pages/MissYou";
 import MoodJar from "./pages/MoodJar";
 import NotFound from "./pages/NotFound";
+import PartnerLinkAccept from "./components/auth/PartnerLinkAccept";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +37,7 @@ const App = () => (
             <Route path="/love-game" element={<LoveGame />} />
             <Route path="/miss-you" element={<MissYou />} />
             <Route path="/mood-jar" element={<MoodJar />} />
+            <Route path="/link-partner" element={<PartnerLinkAccept />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

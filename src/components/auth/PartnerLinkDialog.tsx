@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { toast } from "@/components/ui/use-toast";
 import { 
@@ -86,18 +85,18 @@ const PartnerLinkDialog: React.FC<PartnerLinkDialogProps> = ({
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="bg-background px-2 text-muted-foreground">
-                Or enter partner's email
+                Or enter partner's code
               </span>
             </div>
           </div>
           
           <div className="flex flex-col space-y-2">
-            <Label htmlFor="partnerEmail">Partner's Email</Label>
+            <Label htmlFor="partnerEmail">Partner's Code</Label>
             <Input
               id="partnerEmail"
               value={partnerEmail}
               onChange={(e) => setPartnerEmail(e.target.value)}
-              placeholder="Enter your partner's email"
+              placeholder="Enter your partner's code"
             />
           </div>
         </div>
