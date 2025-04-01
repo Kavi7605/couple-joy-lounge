@@ -1,73 +1,75 @@
-# Welcome to your Lovable project
 
-## Project info
+# Couple Joy Lounge - A Web App for Couples
 
-**URL**: https://lovable.dev/projects/a1373733-ae46-4240-bda8-b5200b551c08
+Couple Joy Lounge is a beautiful web application designed specifically for couples to celebrate and enhance their relationship. The app includes features like birthday countdowns, love letters, and a fun memory game.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **User Authentication**: Secure login and registration system.
+- **Dashboard**: A personalized area with all your relationship information.
+- **Birthday Countdown**: Never forget your partner's special day with a countdown timer.
+- **Love Letters**: Write and save beautiful notes for your loved one.
+- **Memory Game**: A fun couple's game to test your memory and enjoy together.
 
-**Use Lovable**
+## Technology Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a1373733-ae46-4240-bda8-b5200b551c08) and start prompting.
+This project uses:
 
-Changes made via Lovable will be committed automatically to this repo.
+- React for the frontend
+- TailwindCSS for styling
+- React Router for navigation
+- Local Storage for data persistence (simulating a database)
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js (v14 or later)
+- npm (v6 or later)
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/couple-joy-lounge.git
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Navigate to the project directory
+   ```bash
+   cd couple-joy-lounge
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Install the dependencies
+   ```bash
+   npm install
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+4. Start the development server
+   ```bash
+   npm run dev
+   ```
 
-**Edit a file directly in GitHub**
+5. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Running in Visual Studio Code
 
-**Use GitHub Codespaces**
+1. Open Visual Studio Code
+2. Select File > Open Folder and navigate to the cloned repository
+3. Open a terminal in VS Code (Terminal > New Terminal)
+4. Run `npm install` to install dependencies
+5. Run `npm run dev` to start the development server
+6. The app will be available at `http://localhost:8080`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Demo Account
 
-## What technologies are used for this project?
+For testing purposes, you can use the following demo credentials:
+- Email: demo@example.com
+- Password: password
 
-This project is built with .
+## Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## How can I deploy this project?
+## License
 
-Simply open [Lovable](https://lovable.dev/projects/a1373733-ae46-4240-bda8-b5200b551c08) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License - see the LICENSE file for details.
