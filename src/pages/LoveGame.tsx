@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuthContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import NavBar from "@/components/layout/NavBar";
