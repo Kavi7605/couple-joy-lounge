@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -22,7 +21,6 @@ const LoveLetters = () => {
   const [selectedLetter, setSelectedLetter] = useState<LoveLetter | null>(null);
   const [isReadDialogOpen, setIsReadDialogOpen] = useState(false);
   
-  // New letter form state
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("#FFF5F5");
@@ -63,7 +61,6 @@ const LoveLetters = () => {
       description: "Your letter has been saved successfully!",
     });
     
-    // Reset form
     setTitle("");
     setContent("");
     setBackgroundColor("#FFF5F5");
@@ -304,7 +301,6 @@ const LoveLetters = () => {
             </TabsContent>
           </Tabs>
           
-          {/* Read Letter Dialog */}
           <Dialog open={isReadDialogOpen} onOpenChange={setIsReadDialogOpen}>
             <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
               {selectedLetter && (
