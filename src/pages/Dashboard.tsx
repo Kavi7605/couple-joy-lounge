@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Calendar, PenSquare, UserIcon, GamepadIcon } from "lucide-react";
+import { Heart, Calendar, PenSquare, GamepadIcon } from "lucide-react";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -116,7 +116,7 @@ const Dashboard = () => {
             </h1>
             <p className="text-gray-500 mt-2">
               {user.partnerName 
-                ? `You and ${user.partnerName}'s special place`
+                ? `You and ${user.partnerName}'s private space`
                 : "Set up your relationship profile to get started"}
             </p>
           </div>
@@ -129,104 +129,7 @@ const Dashboard = () => {
             </Alert>
           )}
           
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-            {/* Profile Card */}
-            <Card className="bg-white hover:shadow-md transition-shadow">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-medium flex items-center">
-                  <UserIcon className="h-5 w-5 mr-2 text-purple-500" />
-                  Relationship Profile
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <dl className="space-y-2 text-sm">
-                  <div>
-                    <dt className="text-gray-500">Your Name</dt>
-                    <dd>{user.name}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-gray-500">Partner Name</dt>
-                    <dd>{user.partnerName || "Not set"}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-gray-500">Partner's Birthday</dt>
-                    <dd>{user.partnerBirthday 
-                      ? new Date(user.partnerBirthday).toLocaleDateString() 
-                      : "Not set"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-gray-500">Anniversary</dt>
-                    <dd>{user.anniversaryDate 
-                      ? new Date(user.anniversaryDate).toLocaleDateString() 
-                      : "Not set"}
-                    </dd>
-                  </div>
-                </dl>
-              </CardContent>
-              <CardFooter>
-                <Dialog open={isProfileDialogOpen} onOpenChange={setIsProfileDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" size="sm" className="w-full">
-                      Edit Profile
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Edit Relationship Details</DialogTitle>
-                      <DialogDescription>
-                        Update information about you and your partner
-                      </DialogDescription>
-                    </DialogHeader>
-                    
-                    {error && (
-                      <Alert variant="destructive">
-                        <AlertDescription>{error}</AlertDescription>
-                      </Alert>
-                    )}
-                    
-                    <div className="space-y-4 py-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="partnerName">Partner's Name</Label>
-                        <Input
-                          id="partnerName"
-                          value={partnerName}
-                          onChange={(e) => setPartnerName(e.target.value)}
-                          placeholder="Enter your partner's name"
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="partnerBirthday">Partner's Birthday</Label>
-                        <Input
-                          id="partnerBirthday"
-                          type="date"
-                          value={partnerBirthday}
-                          onChange={(e) => setPartnerBirthday(e.target.value)}
-                        />
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="anniversaryDate">Anniversary Date</Label>
-                        <Input
-                          id="anniversaryDate"
-                          type="date"
-                          value={anniversaryDate}
-                          onChange={(e) => setAnniversaryDate(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                    
-                    <DialogFooter>
-                      <Button onClick={handleSaveProfile} disabled={loading}>
-                        {loading ? "Saving..." : "Save Changes"}
-                      </Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-              </CardFooter>
-            </Card>
-
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
             {/* Birthday Countdown Card */}
             <Card className="bg-gradient-to-br from-love-50 to-love-100 hover:shadow-md transition-shadow">
               <CardHeader className="pb-2">
@@ -282,23 +185,67 @@ const Dashboard = () => {
               </CardFooter>
             </Card>
 
-            {/* Couples Game Card */}
+            {/* Game Card */}
             <Card className="bg-gradient-to-br from-peach-50 to-peach-100 hover:shadow-md transition-shadow">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg font-medium flex items-center">
                   <GamepadIcon className="h-5 w-5 mr-2 text-peach-600" />
-                  Couples Game
+                  Love Game
                 </CardTitle>
               </CardHeader>
               <CardContent className="pb-2">
                 <p className="text-sm text-peach-600">
-                  Have fun with our special memory game designed for couples
+                  Try our cute annoying game designed to make your partner smile
                 </p>
               </CardContent>
               <CardFooter>
-                <Link to="/memory-game" className="w-full">
+                <Link to="/love-game" className="w-full">
                   <Button variant="outline" size="sm" className="w-full border-peach-200 text-peach-700 hover:bg-peach-200 hover:text-peach-800">
                     Play Game
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+
+            {/* Miss You Card */}
+            <Card className="bg-gradient-to-br from-pink-50 to-pink-100 hover:shadow-md transition-shadow">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-medium flex items-center">
+                  <Heart className="h-5 w-5 mr-2 text-pink-600" />
+                  Miss You
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pb-2">
+                <p className="text-sm text-pink-600">
+                  Let your partner know how much you miss them
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link to="/miss-you" className="w-full">
+                  <Button variant="outline" size="sm" className="w-full border-pink-200 text-pink-700 hover:bg-pink-200 hover:text-pink-800">
+                    Miss Them
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+
+            {/* Mood Jar Card */}
+            <Card className="bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-md transition-shadow">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg font-medium flex items-center">
+                  <span className="emoji text-xl mr-2">🫙</span>
+                  Mood Jar
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pb-2">
+                <p className="text-sm text-blue-600">
+                  Share your mood with your partner
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link to="/mood-jar" className="w-full">
+                  <Button variant="outline" size="sm" className="w-full border-blue-200 text-blue-700 hover:bg-blue-200 hover:text-blue-800">
+                    Open Jar
                   </Button>
                 </Link>
               </CardFooter>
@@ -334,32 +281,61 @@ const Dashboard = () => {
             </div>
           )}
           
-          {/* Quick Links Section */}
-          <div className="text-center">
-            <h2 className="text-2xl font-display font-medium text-gray-900 mb-4">
-              Quick Links
-            </h2>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/birthday-countdown">
-                <Button variant="outline" className="border-love-200 text-love-700 hover:bg-love-100">
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Birthday Ideas
+          {/* Profile Dialog */}
+          <Dialog open={isProfileDialogOpen} onOpenChange={setIsProfileDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Edit Relationship Details</DialogTitle>
+                <DialogDescription>
+                  Update information about you and your partner
+                </DialogDescription>
+              </DialogHeader>
+              
+              {error && (
+                <Alert variant="destructive">
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+              
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <Label htmlFor="partnerName">Partner's Name</Label>
+                  <Input
+                    id="partnerName"
+                    value={partnerName}
+                    onChange={(e) => setPartnerName(e.target.value)}
+                    placeholder="Enter your partner's name"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="partnerBirthday">Partner's Birthday</Label>
+                  <Input
+                    id="partnerBirthday"
+                    type="date"
+                    value={partnerBirthday}
+                    onChange={(e) => setPartnerBirthday(e.target.value)}
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="anniversaryDate">Anniversary Date</Label>
+                  <Input
+                    id="anniversaryDate"
+                    type="date"
+                    value={anniversaryDate}
+                    onChange={(e) => setAnniversaryDate(e.target.value)}
+                  />
+                </div>
+              </div>
+              
+              <DialogFooter>
+                <Button onClick={handleSaveProfile} disabled={loading}>
+                  {loading ? "Saving..." : "Save Changes"}
                 </Button>
-              </Link>
-              <Link to="/love-letters">
-                <Button variant="outline" className="border-purple-200 text-purple-700 hover:bg-purple-100">
-                  <PenSquare className="h-4 w-4 mr-2" />
-                  Write Letter
-                </Button>
-              </Link>
-              <Link to="/memory-game">
-                <Button variant="outline" className="border-peach-200 text-peach-700 hover:bg-peach-100">
-                  <GamepadIcon className="h-4 w-4 mr-2" />
-                  Play Game
-                </Button>
-              </Link>
-            </div>
-          </div>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </main>
       

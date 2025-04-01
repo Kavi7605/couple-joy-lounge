@@ -13,7 +13,9 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import BirthdayCountdown from "./pages/BirthdayCountdown";
 import LoveLetters from "./pages/LoveLetters";
-import MemoryGame from "./pages/MemoryGame";
+import LoveGame from "./pages/LoveGame";
+import MissYou from "./pages/MissYou";
+import MoodJar from "./pages/MoodJar";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,7 +34,9 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/birthday-countdown" element={<BirthdayCountdown />} />
             <Route path="/love-letters" element={<LoveLetters />} />
-            <Route path="/memory-game" element={<MemoryGame />} />
+            <Route path="/love-game" element={<LoveGame />} />
+            <Route path="/miss-you" element={<MissYou />} />
+            <Route path="/mood-jar" element={<MoodJar />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -3,10 +3,19 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, User } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function NavBar() {
-  const { user, logout } = useAuth();
+  const { user, logout, linkPartner } = useAuth();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -27,7 +36,7 @@ export default function NavBar() {
               <Link to="/" className="flex items-center space-x-2">
                 <Heart className="h-6 w-6 text-love-500 animate-heartbeat" />
                 <span className="font-display text-xl font-medium text-purple-700">
-                  Couple Joy
+                  Our Private Space
                 </span>
               </Link>
             </div>
@@ -78,14 +87,34 @@ export default function NavBar() {
                     Love Letters
                   </Link>
                   <Link
-                    to="/memory-game"
+                    to="/love-game"
                     className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
-                      isActive("/memory-game")
+                      isActive("/love-game")
                         ? "border-love-500 text-gray-900"
                         : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                     }`}
                   >
                     Game
+                  </Link>
+                  <Link
+                    to="/miss-you"
+                    className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
+                      isActive("/miss-you")
+                        ? "border-love-500 text-gray-900"
+                        : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    }`}
+                  >
+                    Miss You
+                  </Link>
+                  <Link
+                    to="/mood-jar"
+                    className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 ${
+                      isActive("/mood-jar")
+                        ? "border-love-500 text-gray-900"
+                        : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    }`}
+                  >
+                    Mood Jar
                   </Link>
                 </>
               )}
@@ -95,16 +124,42 @@ export default function NavBar() {
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             {user ? (
               <div className="flex items-center space-x-4">
-                <div className="text-sm font-medium text-gray-700">
-                  Hi, {user.name}
-                </div>
-                <Button 
-                  variant="ghost" 
-                  onClick={logout} 
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  Logout
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                      <Avatar className="h-10 w-10 bg-love-200">
+                        <AvatarFallback className="text-love-700">
+                          {user.name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+                    <DropdownMenuLabel className="text-xs text-gray-500 font-normal">{user.email}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard" className="cursor-pointer">
+                        Edit Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    {user.partnerId ? (
+                      <DropdownMenuItem>
+                        <div className="flex flex-col w-full">
+                          <span className="text-sm">Partner: {user.partnerName}</span>
+                        </div>
+                      </DropdownMenuItem>
+                    ) : (
+                      <DropdownMenuItem onClick={() => linkPartner()}>
+                        Link with Partner
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={logout} className="text-red-600">
+                      Sign out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             ) : (
               <div className="flex items-center space-x-4">
@@ -215,15 +270,37 @@ export default function NavBar() {
                 Love Letters
               </Link>
               <Link
-                to="/memory-game"
+                to="/love-game"
                 className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
-                  isActive("/memory-game")
+                  isActive("/love-game")
                     ? "bg-love-50 border-love-500 text-love-700"
                     : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Game
+              </Link>
+              <Link
+                to="/miss-you"
+                className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                  isActive("/miss-you")
+                    ? "bg-love-50 border-love-500 text-love-700"
+                    : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Miss You
+              </Link>
+              <Link
+                to="/mood-jar"
+                className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium ${
+                  isActive("/mood-jar")
+                    ? "bg-love-50 border-love-500 text-love-700"
+                    : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Mood Jar
               </Link>
             </>
           )}

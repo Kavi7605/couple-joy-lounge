@@ -6,9 +6,11 @@ interface User {
   id: string;
   name: string;
   email: string;
+  partnerId?: string;
   partnerName?: string;
   partnerBirthday?: string;
   anniversaryDate?: string;
+  passwordHash?: string;
 }
 
 interface AuthContextType {
@@ -19,6 +21,7 @@ interface AuthContextType {
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   updateProfile: (data: Partial<User>) => Promise<void>;
+  linkPartner: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,6 +32,17 @@ export const useAuth = () => {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
+};
+
+// Simple hash function for passwords (in a real app, use bcrypt or similar)
+const hashPassword = (password: string): string => {
+  let hash = 0;
+  for (let i = 0; i < password.length; i++) {
+    const char = password.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return hash.toString();
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -50,9 +64,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(true);
       setError(null);
       
-      // Simulated login for demo purposes
-      // In a real app, this would be an API call
-      if (email === 'demo@example.com' && password === 'password') {
+      // Get users from backend (localStorage in this case)
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const passwordHash = hashPassword(password);
+      
+      const foundUser = users.find((u: any) => 
+        u.email === email && u.passwordHash === passwordHash
+      );
+      
+      if (foundUser) {
+        const { passwordHash, ...userData } = foundUser;
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
+        toast({
+          title: "Login Successful",
+          description: "Welcome back!",
+        });
+      } else if (email === 'demo@example.com' && password === 'password') {
+        // Demo account
         const userData: User = {
           id: '1',
           name: 'Demo User',
@@ -69,21 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           description: "Welcome back!",
         });
       } else {
-        // Check localStorage for registered users
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const foundUser = users.find((u: any) => u.email === email && u.password === password);
-        
-        if (foundUser) {
-          const { password, ...userData } = foundUser;
-          localStorage.setItem('user', JSON.stringify(userData));
-          setUser(userData);
-          toast({
-            title: "Login Successful",
-            description: "Welcome back!",
-          });
-        } else {
-          throw new Error('Invalid email or password');
-        }
+        throw new Error('Invalid email or password');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -102,8 +117,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(true);
       setError(null);
       
-      // Simulated registration for demo purposes
-      // In a real app, this would be an API call
+      // Get users from backend (localStorage in this case)
       const users = JSON.parse(localStorage.getItem('users') || '[]');
       
       // Check if email exists
@@ -111,24 +125,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         throw new Error('Email already registered');
       }
       
+      const passwordHash = hashPassword(password);
+      
       const newUser = {
         id: Date.now().toString(),
         name,
         email,
-        password, // In a real app, this would be hashed
+        passwordHash,
       };
       
       users.push(newUser);
       localStorage.setItem('users', JSON.stringify(users));
       
       // Auto login after registration
-      const { password: _, ...userData } = newUser;
+      const { passwordHash: _, ...userData } = newUser;
       localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
       
       toast({
         title: "Registration Successful",
-        description: "Welcome to Couple Joy Lounge!",
+        description: "Welcome to Our Private Space!",
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -165,7 +181,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const users = JSON.parse(localStorage.getItem('users') || '[]');
       const updatedUsers = users.map((u: any) => {
         if (u.id === user.id) {
-          return { ...u, ...data };
+          return { ...u, ...data, passwordHash: u.passwordHash };
         }
         return u;
       });
@@ -189,6 +205,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const linkPartner = () => {
+    // This would connect to a real backend
+    // For this demo, we'll show a toast
+    toast({
+      title: "Link Partner",
+      description: "This feature would allow you to link with your partner using a unique code.",
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -199,6 +224,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         register,
         logout,
         updateProfile,
+        linkPartner,
       }}
     >
       {children}
