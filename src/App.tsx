@@ -48,12 +48,8 @@ const App = () => (
             <Route path="/love-game" element={<LoveGame />} />
             <Route path="/miss-you" element={<MissYou />} />
             <Route path="/mood-jar" element={<MoodJar />} />
-<<<<<<< HEAD
             <Route path="/link-partner" element={<PartnerLinkAccept />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-=======
             {/* Catch-all route for 404 */}
->>>>>>> 8d1d7dda23a6dcd91cb4c0707dbffca31d8daa2f
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
