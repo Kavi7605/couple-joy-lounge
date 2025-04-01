@@ -33,12 +33,12 @@ export default function NavBar() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2">
                 <Heart className="h-6 w-6 text-love-500 animate-heartbeat" />
                 <span className="font-display text-xl font-medium text-purple-700">
-                  Our Private Space
+                  Couple Joy
                 </span>
-              </Link>
+              </div>
             </div>
             
             {/* Desktop navigation */}
@@ -141,8 +141,8 @@ export default function NavBar() {
                     <DropdownMenuLabel className="text-xs text-gray-500 font-normal">{user.email}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link to="/dashboard" className="cursor-pointer">
-                        Edit Profile
+                      <Link to="/dashboard" className="cursor-pointer w-full">
+                        Dashboard
                       </Link>
                     </DropdownMenuItem>
                     {user.partnerId ? (

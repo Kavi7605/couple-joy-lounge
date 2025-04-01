@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Calendar, PenSquare, GamepadIcon } from "lucide-react";
+import { Heart, Calendar, PenSquare, GamepadIcon, Edit } from "lucide-react";
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -128,6 +128,18 @@ const Dashboard = () => {
               </AlertDescription>
             </Alert>
           )}
+          
+          <div className="flex justify-end mb-4">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-2"
+              onClick={() => setIsProfileDialogOpen(true)}
+            >
+              <Edit className="h-4 w-4" />
+              Edit Profile
+            </Button>
+          </div>
           
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
             {/* Birthday Countdown Card */}

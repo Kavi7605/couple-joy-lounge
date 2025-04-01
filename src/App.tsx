@@ -18,7 +18,18 @@ import MissYou from "./pages/MissYou";
 import MoodJar from "./pages/MoodJar";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+// Create a new QueryClient instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
+
+// Set document title
+document.title = "Couple Joy";
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -37,7 +48,7 @@ const App = () => (
             <Route path="/love-game" element={<LoveGame />} />
             <Route path="/miss-you" element={<MissYou />} />
             <Route path="/mood-jar" element={<MoodJar />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            {/* Catch-all route for 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
